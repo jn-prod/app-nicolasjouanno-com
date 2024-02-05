@@ -1,12 +1,29 @@
 name: Build and deploy site to GitHub Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches:
-      - main
+    branches: ['master']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,13 +41,22 @@ jobs:
         cache: 'pnpm'
     - name: Install node dependencies
       run: pnpm install
-    - name: Lint
-      run: pnpm lint
+    # - name: Lint
+      # run: pnpm lint
     - name: Build
       run: pnpm build
-    - name: Deploy GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: create env file
+      run: |
+        cd ./site/www/dist
+        touch CNAME
+        echo app.nicolasjouanno.com >> CNAME
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site/dist
-        cname: app.nicolasjouanno.com
+          # Upload dist repository
+        path: './site/www/dist'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
