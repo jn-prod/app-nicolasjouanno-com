@@ -1,0 +1,31 @@
+{
+  "name": "styles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass sass:dist --style=compressed",
+    "dev": "sass sass:dist --watch",
+    "lint": "pnpm lint:stylelint && pnpm lint:prettier",
+    "lint:fix": "pnpm lint:stylelint:fix && pnpm lint:prettier:fix",
+    "lint:stylelint": "stylelint \"./src/**/*.scss\"",
+    "lint:stylelint:fix": "stylelint \"./src/**/*.scss\" --fix",
+    "lint:prettier": "prettier --check **/*.{scss,html}",
+    "lint:prettier:fix": "prettier --write **/*.{scss,html}"
+
+  },
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "devDependencies": {
+    "sass": "latest",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard-scss": "^11.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

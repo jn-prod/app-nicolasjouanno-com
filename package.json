@@ -2,7 +2,6 @@
   "name": "app-nicolasjouanno-com",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
