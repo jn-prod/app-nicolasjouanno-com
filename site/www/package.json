@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "preact": "^10.19.3",
+    "jflb-live": "workspace:*",
     "video-trainer": "workspace:*"
   },
   "devDependencies": {

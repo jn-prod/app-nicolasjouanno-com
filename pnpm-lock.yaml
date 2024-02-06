@@ -78,6 +78,9 @@ importers:
 
   site/www:
     dependencies:
+      jflb-live:
+        specifier: workspace:*
+        version: link:../../apps/jflb-live
       preact:
         specifier: ^10.19.3
         version: 10.19.3

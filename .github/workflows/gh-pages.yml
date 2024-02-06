@@ -10,9 +10,7 @@ on:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 # Allow one concurrent deployment
 concurrency:
@@ -41,22 +39,19 @@ jobs:
         cache: 'pnpm'
     - name: Install node dependencies
       run: pnpm install
+    - name: create env file
+      run: |
+        cd apps/jflb-live
+        touch .env
+        echo VITE_APP_SUPABASE_URL=${{secrets.SUPABASE_URL}} >> .env
+        echo VITE_APP_SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> .env
     # - name: Lint
       # run: pnpm lint
     - name: Build
       run: pnpm build
-    - name: create env file
-      run: |
-        cd ./site/www/dist
-        touch CNAME
-        echo app.nicolasjouanno.com >> CNAME
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
+    - name: Deploy GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-          # Upload dist repository
-        path: './site/www/dist'
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v2
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site/www/dist
+        cname: app.nicolasjouanno.com

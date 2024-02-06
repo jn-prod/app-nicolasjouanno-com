@@ -10,7 +10,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         videoTrainer: resolve(__dirname, 'pages/video-trainer/index.html'),
-        feesify: resolve(__dirname, 'pages/feezify/index.html'),
+        jflbLive: resolve(__dirname, 'pages/jflb-live/index.html'),
+        feezify: resolve(__dirname, 'pages/feezify/index.html'),
       },
     },
   },
